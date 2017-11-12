@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 import rafal.kwiatkowski.shopassistant_apachecxf.model.Product;
 
 import java.util.List;
-@Repository
 
 public interface ProductRepository {
     List<Product> findAll();

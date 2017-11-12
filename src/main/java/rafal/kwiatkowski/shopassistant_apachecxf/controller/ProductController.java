@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@RestController
-@Path("/")
+@Component
+@Path("/product")
 public class ProductController {
     @Autowired
     ProductRepository productRepository;
@@ -63,6 +63,5 @@ public class ProductController {
         productRepository.deleteAll();
         return Response.noContent().build();
     }
-
 
 }
