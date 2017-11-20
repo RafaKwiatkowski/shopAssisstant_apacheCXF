@@ -17,4 +17,6 @@ public interface ProductRepository {
     void delete(Integer id);
 
     void deleteAll();
+
+    List<Product> findByName(String name);
 }

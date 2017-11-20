@@ -18,7 +18,7 @@ public class ProductController {
 
     @GET
     @Path("/")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Product> findAllProducts() {
         return productRepository.findAll();
     }
@@ -26,13 +26,20 @@ public class ProductController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_XML)
-    public Product finProduct(@PathParam(value = "id") Integer id) {
+    public Product findProduct(@PathParam(value = "id") Integer id) {
         return productRepository.findOne(id);
+    }
+
+    @GET
+    @Path("{name : .+}")
+    @Produces(MediaType.APPLICATION_XML)
+    public List<Product> findProductByName(@PathParam(value = "name") String name) {
+        return productRepository.findByName(name);
     }
 
     @POST
     @Path("/")
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces(MediaType.APPLICATION_XML)
     public Product createProduct(Product product) {
         return productRepository.save(product);
@@ -40,15 +47,15 @@ public class ProductController {
 
     @PUT
     @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_XML)
-    @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Product updateProduct(@PathParam(value = "id") Integer id, Product productWithChanges) {
         return productRepository.update(id, productWithChanges);
     }
 
     @DELETE
     @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteProduct(@PathParam(value = "id") Integer id) {
         productRepository.delete(id);
         return Response.noContent().build();
@@ -56,7 +63,7 @@ public class ProductController {
 
     @DELETE
     @Path("/")
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteProduct() {
         productRepository.deleteAll();
         return Response.noContent().build();
